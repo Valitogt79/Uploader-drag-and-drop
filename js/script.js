@@ -1,6 +1,6 @@
 const d = document,
   $main = d.querySelector("main"),
-  $files = d.getElementById("files");
+  $dropZone = d.querySelector(".drop-zone");
 
 //* Funcion para la carga de los archivos.
 const uploader = (file) => {
@@ -50,15 +50,27 @@ const progressUpload = (file) => {
   setTimeout(() => {
     $main.removeChild($progress);
     $main.removeChild($span);
-    $files.value = "";
   }, 3000);
 };
 
-d.addEventListener("change", (e) => {
-  if (e.target === $files) {
-    //console.log(e.target.files);
+//* Agregando los elementos para realizar el over, el leave y el drop.
 
-    const files = Array.from(e.target.files);
-    files.forEach((el) => progressUpload(el));
-  }
+$dropZone.addEventListener("dragover", (e) => {
+  //console.log(e);
+  e.preventDefault();
+  e.stopPropagation();
+  e.target.classList.add("is-active");
+});
+$dropZone.addEventListener("dragleave", (e) => {
+  //console.log(e);
+  e.preventDefault();
+  e.stopPropagation();
+  e.target.classList.remove("is-active");
+});
+$dropZone.addEventListener("drop", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const files = Array.from(e.dataTransfer.files);
+  files.forEach((el) => progressUpload(el));
+  e.target.classList.remove("is-active");
 });

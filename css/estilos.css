@@ -10,6 +10,10 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  margin: 0;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -21,4 +25,32 @@ main {
 
 progress {
   margin-top: 1rem;
+}
+
+.drop-zone {
+  margin-left: auto;
+  margin-right: auto;
+  border: thin dotted #000;
+  width: 80%;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.drop-zone.is-active {
+  border: thick dashed #000;
+  background-color: rgba(0, 128, 0, 0.5);
+  animation: pulse 1.5s infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
